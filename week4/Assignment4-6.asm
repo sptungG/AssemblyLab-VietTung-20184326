@@ -1,13 +1,13 @@
-# Week 4 - Assignment 4-6
+# Week 4 - Assignment 4.6
 
 .data
-inputA: .asciiz "Enter an integer A: "
-inputB: .asciiz "Enter an integer B: "
+	inputA: .asciiz "Enter an integer A: "
+	inputB: .asciiz "Enter an integer B: "
 
-output: .asciiz "In binary: \n"
-binaryA: .asciiz "    A    = "
-binaryB: .asciiz "\n    B    = "
-AnandB: .asciiz "\nA NAND B = "
+	output: .asciiz "In binary: \n"
+	binaryA: .asciiz "    A    = "
+	binaryB: .asciiz "\n    B    = "
+	AnandB: .asciiz "\nA NAND B = "
 
 .text
 main:

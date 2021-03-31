@@ -1,4 +1,4 @@
-# Week 4 - Assignment 4-5
+# Week 4 - Assignment 4.5
 
 .data
 prompt: .asciiz "Enter an integer number: "

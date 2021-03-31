@@ -1,9 +1,9 @@
-# Week 4 - Assignment 4-4
+# Week 4 - Assignment 4.4
 
 .data
-prompt: .asciiz "Enter an integer number: "
-output1: .asciiz "The number in binary: "
-output2: .asciiz "\nIts 1's complement:   "
+	prompt: .asciiz "Enter an integer number: "
+	output1: .asciiz "The number in binary: "
+	output2: .asciiz "\nIts 1's complement:   "
 
 .text
 main:

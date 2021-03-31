@@ -1,9 +1,9 @@
-#Program: Assignment 3.4
+#Program: Assignment 3.4d
 #Purpose: Caculate the result of (4x/3)*y 
 .data
-prompt: .asciiz "Enter value of x: "
-prompt2: .asciiz "Enter value of y: "
-result: .asciiz "Result is: "
+	prompt: .asciiz "Enter value of x: "
+	prompt2: .asciiz "Enter value of y: "
+	result: .asciiz "Result is: "
 .text
 	addi $v0, $zero, 4
 	la $a0, prompt

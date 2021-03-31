@@ -1,4 +1,5 @@
  #Laboratory Exercise 4, Home Assignment 2 
+ # Week 4 - Assignment 4.2
 .data
 
 .text  

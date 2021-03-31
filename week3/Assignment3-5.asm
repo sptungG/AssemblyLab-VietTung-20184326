@@ -1,9 +1,9 @@
 #Program: Assignment 3.5
 .data
-prompt: .asciiz "Enter temperature: "
-prompt2: .asciiz "Enter mol: "
-prompt3: .asciiz "Enter pressure: "
-result: .asciiz "Volume is: "
+	prompt: .asciiz "Enter temperature: "
+	prompt2: .asciiz "Enter mol: "
+	prompt3: .asciiz "Enter pressure: "
+	result: .asciiz "Volume is: "
 .text
 	li $v0, 4
 	la $a0, prompt
