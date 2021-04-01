@@ -16,7 +16,6 @@ Exit:
 #Side effect: A new line character is printed to the user's console
 #***input: None
 #***Output: None
-# n�n b?t ??u 1 ctr con b?ng text segment
 .text
 PrintNewLine:
 	li $v0,4
@@ -52,7 +51,22 @@ PrintInt:
 	move $a0, $a1
 	li $v0,1
 	syscall
-	
+	# return
+	jr $ra
+# ======================== ========================
+#subprogram PrintBinary
+#***input: $a0 - the address of the sting to print
+#	   $a1 - the value of the int to print
+#***return: None
+.text 
+PrintBinary:
+	# Print string. The string address is already in $a0
+	li $v0, 4
+	syscall
+	# Print integer, the integer value is in $a1, and must be first moved to $a0
+	move $a0, $a1
+	li $v0, 35
+	syscall
 	# return
 	jr $ra
 # ======================== ========================
@@ -61,19 +75,22 @@ PrintInt:
 #***input: $a0 - the address of the sting to print
 #***return: $v0 - The value the user entered
 #Side effect: the String is printed followed by the integer value
-.text 
-PromptInt: 
-	# print the prompt, which is already in $a0
-	li $v0, 4
+.text
+	PromptInt:
+ 	# Print the prompt, which is already in $a0
+ 	li $v0, 4
+	la $a0, promptint
 	syscall
-	#Read the integer value. Note that at the end of the 
-	#syscall the value is already in $v0,
-	#so there is no need to move it any where.
-	#move $a0, $a1
-	li $v0, 5
-	syscall
-	
-	jr $ra
+ 	# Read the integer value. Note that at the end of the
+ 	# syscall the value is already in $v0, so there is no
+ 	# need to move it anywhere.
+ 	move $a0, $a1
+ 	li $v0, 5
+ 	syscall
+ 	#return
+ 	jr $ra
+ .data
+ 	promptint: .asciiz "---- Enter in an integer: "
 # ======================== ========================
 #subprogram PrintTab
 .text
@@ -128,7 +145,10 @@ NOT:
 # Side Effects: None
 .text
 Mult4:
-	sll $v0, $a1, 2
+ 	#promptInt is always called before this so the in will already be in $v0
+ 	move $t5, $v0 #moves integer to $t5
+	sll $t3, $t5, 2 #multiplies input by 2^1 = 2 stores answer in t3
+	add $v0,$zero, $t3
 	jr $ra
 # ======================== ========================
 # Subprogram Name: Mult10
@@ -137,11 +157,13 @@ Mult4:
 # ***Output: $v0 - The integer multiplied by 10
 # Side Effects: None
 .text
-Mult10:
-	srl $v0, $a1, 3
-	srl $v1, $a1, 1
-	add $v0, $v0, $v1
-	jr $ra
+ Mult10:
+ 	#promptInt is always called before this so the in will already be in $v0
+ 	move $t5, $v0 #moves integer to $t5
+ 	sll $t2, $t5, 3 #multiplies input by 2^3 = 8 stores answer in t2
+ 	sll $t3, $t5, 1 #multiplies input by 2^1 = 2 stores answer in t3
+ 	add $v0,$t2, $t3 #adds the two sll ops($t2,$t3) together and stores in v0 return  register
+ 	jr $ra #return
 # ======================== ========================
 # Subprogram Name: Swap (with xor only)
 # Program: To swap the given input positions without using a temporary value to hold the original values
@@ -162,11 +184,13 @@ Swap:
 # ***Output: $v0 - The rotated right integer value
 #	         $v1 - The original value
 # Side Effects: None
-.text
-RightCircularShift:
-	ror $v0, $a1, 1
-	move $v1, $a1
-	jr $ra
+ .text
+ RightCircularShift:
+ 	#promptInt is always called before this so the the entered int will be in $v0
+ 	andi $t0, $v0,1 # gets the least significant bit(LSB) that is lost by calling RCS stores in t0
+ 	srl $v1, $v0, 1 #rotates the entered number one bit to the right stores it in v1
+ 	#return values stored in $v1,$t0
+ 	jr $ra#return
 # ======================== ========================
 # Subprogram Name: LeftCircularShift
 # Program: To rotate the integer value and also show the original integer value in binary
@@ -175,10 +199,12 @@ RightCircularShift:
 # 	         $v1 - The original integer value
 # Side Effects: None
 .text
-LeftCircularShift:
-	rol $v0, $a1, 1
-	move $v1, $a1
-	jr $ra
+ LeftCircularShift:
+ 	#promptInt is always called before this so the the entered int will be in $v0
+ 	and $t1, $v0, 0x8000 #this gives us the HSB that us shifted
+ 	sll $v1, $v0, 1 #rotates the entered number one bit to the left stores it in a1
+ 	#return values stored in $v1,$t1
+ 	jr $ra #return
 # ======================== ========================
 # Subprogram Name: ToUpper
 # Program: To change a lowercase 3-char string into an uppercase one if it is lowercase
