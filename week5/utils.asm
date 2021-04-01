@@ -1,4 +1,4 @@
-# Assigment 5.3 
+# Assignment 5.3 
 
 # ======================== ========================
 #subprogram Exit
@@ -16,7 +16,7 @@ Exit:
 #Side effect: A new line character is printed to the user's console
 #***input: None
 #***Output: None
-# nên b?t ??u 1 ctr con b?ng text segment
+# nï¿½n b?t ??u 1 ctr con b?ng text segment
 .text
 PrintNewLine:
 	li $v0,4
@@ -85,14 +85,14 @@ PrintTab:
 .data 
 	tab: .asciiz "\t"
 # ======================== ======================== ======================== 
-# Assigment 5.3  Assigment 5.3  Assigment 5.3
+# Assignment 5.3  Assignment 5.3  Assignment 5.3
 # Program: A few utility subprograms for inclusion in other files
 # ======================== ========================
 # Subprogram Name: NOR
 # Purpose: To output the NOR of a given input values
-# Input: $a0 - The first input integer
-#	 $a1 - The second input intger
-# Output: $v0 - The Nor version of the inputs
+# ***Input: $a0 - The first input integer
+#	        $a1 - The second input intger
+# ***Output: $v0 - The Nor version of the inputs
 # Side Effects: None
 .text
 NOR:
@@ -101,9 +101,9 @@ NOR:
 # ======================== ========================
 # Subprogram Name: NAND
 # Program: To output the NAND of a given input values
-# Input: $a0 - The first input integer
-#	 $a1 - The second input intger
-# Output: $v0 - The NAND version of the inputs
+# ***Input: $a0 - The first input integer
+#	        $a1 - The second input intger
+# ***Output: $v0 - The NAND version of the inputs
 # Side Effects: None
 .text
 NAND:
@@ -113,8 +113,8 @@ NAND:
 # ======================== ========================
 # Subprogram Name: NOT
 # Program: To output the NOT of a given input value
-# Input: $a0 - The input integer
-# Output: $v0 - The Not version of the input
+# ***Input: $a0 - The input integer
+# ***Output: $v0 - The Not version of the input
 # Side Effects: None
 .text
 NOT:
@@ -123,8 +123,8 @@ NOT:
 # ======================== ========================
 # Subprogram Name: Mult4
 # Program: To output the integer multiplied by 4
-# Input: $a0 - The input integer
-# Output: $v0 - The integer multiplied by 4
+# ***Input: $a0 - The input integer
+# ***Output: $v0 - The integer multiplied by 4
 # Side Effects: None
 .text
 Mult4:
@@ -133,8 +133,8 @@ Mult4:
 # ======================== ========================
 # Subprogram Name: Mult10
 # Program: To output the integer multiplied by 10
-# Input: $a0 - The input integer
-# Output: $v0 - The integer multiplied by 10
+# ***Input: $a0 - The input integer
+# ***Output: $v0 - The integer multiplied by 10
 # Side Effects: None
 .text
 Mult10:
@@ -145,9 +145,9 @@ Mult10:
 # ======================== ========================
 # Subprogram Name: Swap (with xor only)
 # Program: To swap the given input positions without using a temporary value to hold the original values
-# Input: $a0 - The first input integer
-# 	 $a1 - The second input integer
-# Output: None
+# ***Input: $a0 - The first input integer
+# 	        $a1 - The second input integer
+# ***Output: None
 # Side Effects: $a0 and $a1 will be swapped
 .text
 Swap:
@@ -158,9 +158,9 @@ Swap:
 # ======================== ========================
 # Subprogram Name: RightCircularShift
 # Program: To rotate the integer value and also show the original integer value in binary
-# Input: $a0 - The input integer
-# Output: $v0 - The rotated right integer value
-#	  $v1 - The original value
+# ***Input: $a0 - The input integer
+# ***Output: $v0 - The rotated right integer value
+#	         $v1 - The original value
 # Side Effects: None
 .text
 RightCircularShift:
@@ -170,9 +170,9 @@ RightCircularShift:
 # ======================== ========================
 # Subprogram Name: LeftCircularShift
 # Program: To rotate the integer value and also show the original integer value in binary
-# Input: $a0 - The input integer
-# Output: $v0 - The rotated left integer value
-# 	  $v1 - The original integer value
+# ***Input: $a0 - The input integer
+# ***Output: $v0 - The rotated left integer value
+# 	         $v1 - The original integer value
 # Side Effects: None
 .text
 LeftCircularShift:
@@ -182,8 +182,8 @@ LeftCircularShift:
 # ======================== ========================
 # Subprogram Name: ToUpper
 # Program: To change a lowercase 3-char string into an uppercase one if it is lowercase
-# Input:	$a0 - The original string
-# Output:	None
+# ***Input:	$a0 - The original string
+# ***Output:	None
 # Side Effects: $a0 will contain the uppercase string
 .text
 ToUpper:
@@ -192,8 +192,8 @@ ToUpper:
 # ======================== ========================
 # Subprogram Name: ToLower
 # Program: To change an uppercase 3 char string into a lowercase one if it is uppercase
-# Input: $a0 - The original string
-# Output: None
+# ***Input: $a0 - The original string
+# ***Output: None
 # Side Effects: $a0 will contain the lowercase string
 .text
 ToLower:
