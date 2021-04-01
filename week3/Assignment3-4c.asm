@@ -3,7 +3,7 @@
 
 .data 
 	prompt: .asciiz "Enter value of x: " 
-	result: .asciiz "Result is: " 
+	result: .asciiz "Result x^3 + 2x^2 + 3x + 4 is: " 
 
 .text 
 	addi $v0, $zero, 4 

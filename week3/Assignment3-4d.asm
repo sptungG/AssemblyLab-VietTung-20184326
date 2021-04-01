@@ -3,7 +3,7 @@
 .data
 	prompt: .asciiz "Enter value of x: "
 	prompt2: .asciiz "Enter value of y: "
-	result: .asciiz "Result is: "
+	result: .asciiz "Result (4x/3)*y is: "
 .text
 	addi $v0, $zero, 4
 	la $a0, prompt

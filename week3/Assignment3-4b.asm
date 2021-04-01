@@ -1,11 +1,11 @@
-#Program: Assignment 3.4a,b
-#Purpose: Caculate the result of 5x+3y+z and ((5x+3y+z)/2)*3  
+#Program: Assignment 3.4b
+#Purpose: Caculate the result of ((5x+3y+z)/2)*3  
 
 .data 
 	prompt: .asciiz " Enter the value of x: " 
 	prompt2: .asciiz "Enter the value of y: " 
 	prompt3: .asciiz "Enter the value of z: " 
-	result: .asciiz "Result is: " 
+	result: .asciiz "Result ((5x+3y+z)/2)*3 is: " 
 .text 
 	addi $v0, $zero, 4 #Print the prompt 
 	la $a0, prompt 
@@ -46,6 +46,6 @@
 	
 	addi $v0, $zero, 1 
 	move $a0, $t2 
-	Syscall 
+	syscall 
 
  
