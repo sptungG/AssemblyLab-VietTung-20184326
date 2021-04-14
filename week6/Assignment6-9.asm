@@ -1,67 +1,36 @@
-.data
-	numberText: .asciiz "Number "
-	isPrimeText: .asciiz " is a prime\n"
-	notPrimeText: .asciiz " is not a prime\n"
-	prompt: .asciiz "Enter an integer: "
-	errorText: .asciiz "Error\n"
-.text
-main:
-	outerLoop:
-		# prompt an integer
-		la $a0, prompt
-		jal printString
-		jal readInt
-		move $s0, $v0
-		beq $s0, -1, exitOuterLoop
-		
-		# if $s0 <= 2
-		ble $s0, 2, printError
-		# else
-		li $t0, 2
-		li $t1, 0
-		innerLoop:
-			bge $t0, $s0, exitInnerLoop
-			rem $t2, $s0, $t0
-			# if $s0 is divible by $t0
-			beqz $t2, divisible
-			# else
-			addi $t0, $t0, 1
-			j innerLoop
-			divisible:
-				li $t1, 1
-		exitInnerLoop:
-			# if $t1 == 0 -> $s0 is a prime
-			beqz $t1, printPrime
-			# else
-			j printNotPrime
-			
-			printPrime:
-				la $a0, numberText
-				jal printString
-				move $a0, $s0
-				jal printInt
-				la $a0, isPrimeText
-				jal printString
-				j continueToOuterLoop
-			printNotPrime:
-				la $a0, numberText
-				jal printString
-				move $a0, $s0
-				jal printInt
-				la $a0, notPrimeText
-				jal printString
-				j continueToOuterLoop
-			continueToOuterLoop:
-				j outerLoop
+ .text
 
-		printError:
-			la $a0, errorText
-			jal printString
-			j outerLoop
-		
-	exitOuterLoop:
-		li $v0, 10
-		syscall
-		
-.include "utils.asm"
+.globl main
+
+main:
+	la $a0,input
+	jal PromptInt
+	move $a0,$v0
 	
+	jal checkPrime
+	beq $v0,0,case0
+	beq $v0,1,case1
+	beq $v0,2,case2
+	j exit
+case0:
+	la $a0,notprime
+	jal PrintString
+	j exit
+case1:
+	la $a0,isprime
+	jal PrintString
+	j exit
+case2:
+	la $a0,error
+	jal PrintString
+	j exit
+exit:
+	jal Exit
+	
+.data
+	input: .asciiz "Input the number :"
+	error: .asciiz "Error Number"
+	isprime: .asciiz "It's a prime number"
+	notprime: .asciiz "It's not a prime number"
+
+.include "utils.asm"

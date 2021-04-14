@@ -1,59 +1,42 @@
-.data
-	maxBound: .asciiz "Enter an max bound: "
-	guess: .asciiz "Enter a guess: "
-	tooHigh: .asciiz "Too high\n"
-	tooLow: .asciiz "Too low\n"
-	num: .asciiz "Number of guesses: "
-	win: .asciiz "Congratulations! Random number is: "
 .text
-	# prompt to get max bound
-	la $a0, maxBound
-	jal printString
-	jal readInt
+.globl main
+main:
+	la $a0,max
+	jal PromptInt
 	
-	# random a number
-	move $a1, $v0
-	li $v0, 42
-	syscall
-	move $s0, $a0
+	move $a1,$v0
+    	li $v0, 42          # Service 41, random int    
+    	syscall            # Generate random int (returns in $a0)
+    	move $t1,$a0
+#   	li $v0, 1          # Service 1, print int
+#  	syscall 
+while:	
+	la $a0,guess
+	jal PromptInt
 	
-	# number of gueses -> $t0
-	li $t0, 0
-	loop:
-		# prompt a guess
-		la $a0, guess
-		jal printString
-		jal readInt
-		move $t1, $v0
-		addi $t0, $t0, 1
-		# if correct
-		beq $t1, $s0, endLoop
-		# else if a guess is smaller than a random
-		blt $t1, $s0, printTooLow
-		# else
-		la $a0, tooHigh
-		jal printString
-		j continueToLoop
-		
-		printTooLow:
-			la $a0, tooLow
-			jal printString
-		continueToLoop:
-			j loop
-		
-	endLoop:
-		la $a0, win
-		move $a1, $s0
-		jal printStringAndInt
-		
-		jal printNewLine
-		
-		la $a0, num
-		move $a1, $t0
-		jal printStringAndInt
-		
-		li $v0, 10
-		syscall
-		
+	bgt $v0,$t1,great
+	blt $v0,$t1,loww
+	beq $v0,$t1,equal
+great:
+	la $a0,high
+	jal PrintString
+	j while
+loww:
+	la $a0,low
+	jal PrintString
+	j while
+equal:
+	la $a0,right
+	jal PrintString
+	j exit
+exit:  	
+    	jal Exit
+    	
+.data
+	max: .asciiz"Max Value: "
+	guess: .asciiz"\nYour guess:"
+	high: .asciiz"\nYour guess is too high"
+	low: .asciiz"\nYour guess to too low"
+	right: .asciiz"\nYour guess is right"
+
 .include "utils.asm"
-	
