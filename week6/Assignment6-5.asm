@@ -1,36 +1,67 @@
+# switch(test) {
+#	case 0:
+#		a = a + 1; break;
+#	case 1:
+#		a = a - 1; break;
+#	case 2: 
+#		b = 2 * b; break;
+# }
+
+#.data
+#test: .word 1
+#.text
+	#la $s0, test 		#load the address of test variable
+	#lw $s1, 0($s0) 		#load the value of test to register $t1
+	#li $t0, 0 		#load value for test case
+	#li $t1, 1
+	#li $t2, 2
+	#beq $s1, $t0, case_0
+	#beq $s1, $t1, case_1
+	#beq $s1, $t2, case_2
+	#j default
+#case_0: addi $s2, $s2, 1 #a=a+1
+	#j continue
+#case_1: sub $s2, $s2, $t1 #a=a-1
+	#j continue
+#case_2: add $s3, $s3, $s3 #b=2*b
+	#j continue
+#default:
+#continue:
+
+
+.data
+prompt:		.asciiz "\nEnter a number from 0 to 2: "
+exit_message:	.asciiz	"\nInvalid input"
+
 .text
-	# init a, b, test
-	li $t0, 1
+	li $s2, 0		# a = 0
+	li $s3, 1		# b = 1
+	
+	la $a0, prompt
+	li $v0, 4
+	syscall
+	move $a0, $a1
+	li $v0, 5
+	syscall
+	move $s1, $v0
+
+	li $t0, 0 		# load value for test case
 	li $t1, 1
-	li $s0, 2
-	
-	# switch
-	beq $s0, 0, caseZero
-	beq $s0, 1, caseOne
-	beq $s0, 2, caseTwo
+	li $t2, 2
+	beq $s1, $t0, case_0
+	beq $s1, $t1, case_1
+	beq $s1, $t2, case_2
 	j default
-	
-	caseZero:
-		addi $t0, $t0, 1
-		j continue
-	caseOne:
-		addi $t0, $t0, -1
-		j continue
-	caseTwo:
-		add $t1, $t1, $t1
-		j continue
-	default:
-	continue:
-		# print a and b
-		move $a0, $t0
-		jal printInt
-		jal printSpace
-		
-		move $a0, $t1
-		jal printInt
-		jal printSpace
-		
-		li $v0, 10
-		syscall
-		
-.include "utils.asm"
+case_0: addi $s2, $s2, 1 	# a=a+1
+	j continue
+case_1: sub $s2, $s2, $t1 	# a=a-1
+	j continue
+case_2: add $s3, $s3, $s3  	# b=2*b
+	j continue
+default:
+	la $a0, exit_message
+	li $v0, 4
+	syscall
+continue:
+	li $v0, 10
+	syscall
