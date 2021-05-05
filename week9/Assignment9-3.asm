@@ -10,15 +10,12 @@ main:
 	la $a0, prompt
 	jal PromptInt
 	move $s0, $v0
-	jal PrintNewLine
 	la $a0, prompt
 	jal PromptInt
 	move $s1, $v0
-	jal PrintNewLine
 	la $a0, prompt
 	jal PromptInt
 	move $s2, $v0
-	jal PrintNewLine
 	
 	# Call the subprogram to return to the median
 	jal FindMedian
