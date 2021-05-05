@@ -44,6 +44,6 @@ GetNumber:
 	jr $ra
 	
 .data
-prompt: .asciiz "----Enter a number form 0 to 100 (-1 to break): "
+prompt: .asciiz "----Enter a number (-1 when done): "
 result: .ascii ">>>> The average number is : "
 .include "utils.asm"
