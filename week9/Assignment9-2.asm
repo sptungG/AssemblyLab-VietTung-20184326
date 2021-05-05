@@ -46,21 +46,8 @@ PrintInt:
 	jal PrintNewLine
 	lw $ra, 0($sp)
 	addi $sp, $sp, 4
-	jr $ra
-.text
-PrintString:
-        addi $sp, $sp, -4
-	sw $ra, 0($sp)
-	addi $v0, $zero, 4
-	syscall
-	# Saving the return register so we can jump the PrintNewLine subprogram
-	addi $sp, $sp, -4
-	sw $ra, 0($sp)
-	jal PrintNewLine
-	lw $ra, 0($sp)
-	addi $sp, $sp, 4
-	jr $ra
 	
+	jr $ra
 .text
 Exit:
 	li $v0, 10
