@@ -13,10 +13,10 @@
 # return; }
 
 .data
-  prompt1: .asciiz "----Enter number1: "		# First number prompt
-  prompt2: .asciiz "----Enter number2: "		# Second number prompt
-  prompt3: .asciiz "----Enter number3: "		# Third number prompt
-  prompt4: .asciiz "----Enter number4: "		# Third number prompt
+  prompt1: .asciiz "----Enter number1: "		# 
+  prompt2: .asciiz "----Enter number2: "		# 
+  prompt3: .asciiz "----Enter number3: "		# 
+  prompt4: .asciiz "----Enter number4: "    #
   result: .asciiz ">>>> Largest: "			# Largest number result prompt
   resultAvg: .asciiz ">>>> Average: "			# Average of the numbers result prompt
 .text 
