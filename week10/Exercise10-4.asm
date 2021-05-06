@@ -5,7 +5,35 @@
 # 	occur.
 # b) Change the AllocateArray program to always do allocations on a double word boundary
 
-
+.text
+ .globl main
+main:
+	li $a0, 8		# I want room for 8 integers
+	li $a1, 4		# Each integer takes 4 bytes
+	jal AllocateArray
+	
+	move $s0, $v0, 		# Save the address of my new array
+	
+	li $t0, 1
+	sw $t0, 0($s0)		# Load a 1 into the first location of my array
+	li $t0, 2
+	sw $t0, 4($s0)		# Put a 2 into the second location
+	
+	# Lets allocate a second array
+	
+	li $a0, 8		# I want room for 8 integers
+	li $a1, 4		# Each integer takes 4 bytes
+	jal AllocateArray
+	
+	move $s0, $v0, 		# Save the address of my new array
+	
+	li $t0, 99
+	sw $t0, 0($s0)		# Load a 1 into the first location of my array
+	li $t0, 98
+	sw $t0, 4($s0)		# Put a 2 into the second location
+	
+	jal Exit
+# ======================== ========================
 # Subprogram: AllocateArray
 # Purpose: To allocate an array of $a0 items, each of size $a1.
 # Author: Charles Kann
@@ -21,7 +49,7 @@ AllocateArray:
           lw $ra, 0($sp)
           addi $sp, $sp, 4
           jr $ra
-
+# ======================== ========================
 # Purpose: To prompt for a string, allocate the string
 # and return the string to the calling subprogram. $a0 - The prompt
 # Input: $a1 - The maximum size of the string
@@ -47,3 +75,6 @@ PromptString:
     lw $s0, 8($sp)
     addi $sp, $sp, 12
     jr $ra
+# ======================== ========================
+
+.include "utils.asm"
