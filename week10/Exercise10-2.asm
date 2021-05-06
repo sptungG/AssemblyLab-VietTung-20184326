@@ -1,6 +1,6 @@
 # The following pseudo code converts an input
 # value of a single decimal number from
-# 1?n?15 into a single hexadecimal digit.
+# 1 < n < 15 into a single hexadecimal digit.
 # Translate this pseudo code into MIPS
 # assembly.
 # Program: To print out an inputted integer in it's hexadecimal form

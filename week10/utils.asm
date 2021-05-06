@@ -1,4 +1,3 @@
-# Assignment 5.3 
 
 # ======================== ========================
 #subprogram Exit
@@ -98,128 +97,55 @@ PrintTab:
 	jr $ra
 .data 
 	tab: .asciiz "\t"
-# ======================== ======================== ======================== 
-# Assignment 5.3  Assignment 5.3  Assignment 5.3
-# Program: A few utility subprograms for inclusion in other files
-# ======================== ========================
-# Subprogram Name: NOR
-# Purpose: To output the NOR of a given input values
-# ***Input: $a0 - The first input integer
-#	        $a1 - The second input intger
-# ***Output: $v0 - The Nor version of the inputs
-# Side Effects: None
+# ======================== ======================== 
+# Subprogram: PrintIntArray
+# Purpose: print an array of ints
+# inputs: $a0 - the base address of the array
+#         $a1 - the size of the array
+#
 .text
-NOR:
-	nor $v0, $a1, $a2
-	jr $ra
-# ======================== ========================
-# Subprogram Name: NAND
-# Program: To output the NAND of a given input values
-# ***Input: $a0 - The first input integer
-#	        $a1 - The second input intger
-# ***Output: $v0 - The NAND version of the inputs
-# Side Effects: None
-.text
-NAND:
-	and $v0, $a1, $a2
-	not $v0, $v0
-	jr $ra
-# ======================== ========================
-# Subprogram Name: NOT
-# Program: To output the NOT of a given input value
-# ***Input: $a0 - The input integer
-# ***Output: $v0 - The Not version of the input
-# Side Effects: None
-.text
-NOT:
-	not $v0, $a1
-	jr $ra
-# ======================== ========================
-# Subprogram Name: Mult4
-# Program: To output the integer multiplied by 4
-# ***Input: $a0 - The input integer
-# ***Output: $v0 - The integer multiplied by 4
-# Side Effects: None
-.text
-Mult4:
- 	#promptInt is always called before this so the in will already be in $v0
- 	move $t5, $v0 #moves integer to $t5
-	sll $t3, $t5, 2 #multiplies input by 2^1 = 2 stores answer in t3
-	add $v0,$zero, $t3
-	jr $ra
-# ======================== ========================
-# Subprogram Name: Mult10
-# Program: To output the integer multiplied by 10
-# ***Input: $a0 - The input integer
-# ***Output: $v0 - The integer multiplied by 10
-# Side Effects: None
-.text
- Mult10:
- 	#promptInt is always called before this so the in will already be in $v0
- 	move $t5, $v0 #moves integer to $t5
- 	sll $t2, $t5, 3 #multiplies input by 2^3 = 8 stores answer in t2
- 	sll $t3, $t5, 1 #multiplies input by 2^1 = 2 stores answer in t3
- 	add $v0,$t2, $t3 #adds the two sll ops($t2,$t3) together and stores in v0 return  register
- 	jr $ra #return
-# ======================== ========================
-# Subprogram Name: Swap (with xor only)
-# Program: To swap the given input positions without using a temporary value to hold the original values
-# ***Input: $a0 - The first input integer
-# 	        $a1 - The second input integer
-# ***Output: None
-# Side Effects: $a0 and $a1 will be swapped
-.text
-Swap:
-	xor $t0, $a1, $a2
-	xor $a1, $a1, $t0
-	xor $a2, $a2, $t0
-	jr $ra
-# ======================== ========================
-# Subprogram Name: RightCircularShift
-# Program: To rotate the integer value and also show the original integer value in binary
-# ***Input: $a0 - The input integer
-# ***Output: $v0 - The rotated right integer value
-#	         $v1 - The original value
-# Side Effects: None
- .text
- RightCircularShift:
- 	#promptInt is always called before this so the the entered int will be in $v0
- 	andi $t0, $v0,1 # gets the least significant bit(LSB) that is lost by calling RCS stores in t0
- 	srl $v1, $v0, 1 #rotates the entered number one bit to the right stores it in v1
- 	#return values stored in $v1,$t0
- 	jr $ra#return
-# ======================== ========================
-# Subprogram Name: LeftCircularShift
-# Program: To rotate the integer value and also show the original integer value in binary
-# ***Input: $a0 - The input integer
-# ***Output: $v0 - The rotated left integer value
-# 	         $v1 - The original integer value
-# Side Effects: None
-.text
- LeftCircularShift:
- 	#promptInt is always called before this so the the entered int will be in $v0
- 	and $t1, $v0, 0x8000 #this gives us the HSB that us shifted
- 	sll $v1, $v0, 1 #rotates the entered number one bit to the left stores it in a1
- 	#return values stored in $v1,$t1
- 	jr $ra #return
-# ======================== ========================
-# Subprogram Name: ToUpper
-# Program: To change a lowercase 3-char string into an uppercase one if it is lowercase
-# ***Input:	$a0 - The original string
-# ***Output:	None
-# Side Effects: $a0 will contain the uppercase string
-.text
-ToUpper:
-	and $a1, $a1, 0x000000df
-	jr $ra
-# ======================== ========================
-# Subprogram Name: ToLower
-# Program: To change an uppercase 3 char string into a lowercase one if it is uppercase
-# ***Input: $a0 - The original string
-# ***Output: None
-# Side Effects: $a0 will contain the lowercase string
-.text
-ToLower:
-	or $a1, $a1, 0x00000020
-	jr $ra
-# ======================== ========================
+PrintIntArray:
+	addi $sp, $sp, -16	# Stack record
+	sw $ra, 0($sp)
+	sw $s0, 4($sp)
+	sw $s1, 8($sp)
+	sw $s2, 12($sp)
+
+	# save the base of the array to $s0
+	move $s0, $a0
+
+	# initialization for counter loop
+	# $s1 is the ending index of the loop
+	# $s2 is the loop counter
+	move $s1, $a1
+	move $s2, $zero
+
+   	la $a0 open_bracket
+   	jal PrintString
+loop:
+    # check ending condition
+    sge $t0, $s2, $s1
+    bnez $t0, end_loop
+        sll $t0, $s2, 2
+        add $t0, $t0, $s0
+        lw $a1, 0($t0)
+        la $a0, comma
+        jal PrintInt
+        addi $s2, $s2, 1
+        b loop
+end_loop:
+    li $v0, 4
+    la $a0, close_bracket
+    syscall
+    lw $ra, 0($sp)
+    lw $s0, 4($sp)
+    lw $s1, 8($sp)
+    lw $s2, 12($sp)
+    addi $sp, $sp, 16
+    jr $ra
+.data
+    open_bracket:	.asciiz "["
+    close_bracket:	.asciiz "]"
+    comma:	.asciiz ","
+    
+
