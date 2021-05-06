@@ -23,7 +23,7 @@ array_base:
 	.word 6
 	.word 7
 	.word 8
-
+# ======================== ========================
 .text
 PrintIntArray:
 	addi $sp, $sp, -16	# Stack record
@@ -68,5 +68,26 @@ end_loop:
     open_bracket:	.asciiz "["
     close_bracket:	.asciiz "]"
     comma:	.asciiz ","
-   
-.include "utils.asm"          
+# ======================== ========================
+.text 
+PrintInt:
+	#Print String. the string address is already in $a0
+	li $v0, 4
+	syscall
+	#print integer. The integer value is in $a1, and must be first moved to $a0
+	move $a0, $a1
+	li $v0,1
+	syscall
+	# return
+	jr $ra   
+# ======================== ========================
+.text 
+PrintString:
+	addi $v0, $zero, 4
+	syscall
+	jr $ra
+# ======================== ========================
+.text
+Exit:
+    li $v0,10
+    syscall
