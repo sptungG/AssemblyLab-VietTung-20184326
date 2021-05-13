@@ -18,32 +18,21 @@ main:
 	nop         
 	jal     GO         
 	nop   
-sleep1: addi $v0, $zero, 32 # Keep running by sleeping in 1000 ms
-	li $a0,1000
-	syscall
-
-	jal UNTRACK # keep old track
-	nop
-	jal TRACK # and draw new track line
-	nop
-#	
-goDOWN: addi $a0, $zero, 180 # Marsbot rotates 180*
-	jal ROTATE
-	nop
-sleep2: addi $v0,$zero,32 # Keep running by sleeping in 2000 ms
-	li $a0,100
-	syscall
-	jal UNTRACK # keep old track
-	nop
-	jal TRACK # and draw new track line
-	nop
+sleep1: 
+	addi    $v0,$zero,32    			# Keep running by sleeping in 1000 ms         
+	li      $a0,1000                 
+	syscall                  
+	jal     UNTRACK         			# keep old track         
+	nop         
+	jal     TRACK           			# and draw new track line         
+	nop 
 #
 goASKEW1:addi $a0, $zero, 120 # Marsbot rotates 120*
 	jal ROTATE
 	nop
 
 sleep4: addi $v0,$zero,32 # Keep running by sleeping in 2000 ms
-	li $a0,5000
+	li $a0,3000
 	syscall
 
 	jal UNTRACK # keep old track
@@ -55,7 +44,7 @@ goASKEW2:addi $a0, $zero, 240 # Marsbot rotates 120*
 	jal ROTATE
 	nop
 sleep5: addi $v0,$zero,32 # Keep running by sleeping in 2000 ms
-	li $a0,5000
+	li $a0,3000
 	syscall
 
 	jal UNTRACK # keep old track
@@ -68,23 +57,17 @@ goUP: addi $a0, $zero, 0 # Marsbot rotates 180*
 	nop
 
 sleep6: addi $v0,$zero,32 # Keep running by sleeping in 2000 ms
-	li $a0,5000
+	li $a0,3000
 	syscall
 	jal UNTRACK # keep old track
 	nop
 	jal TRACK # and draw new track line
 	nop
 #
-goRIGHT: addi $a0, $zero, 90 # Marsbot rotates 270*
-	jal ROTATE
+STOP:	li $at, MOVING # change MOVING port to 0
+	sb $zero, 0($at) # to stop
 	nop
-
-sleep3: addi $v0,$zero,32 # Keep running by sleeping in 1000 ms
-	li $a0,1000
-	syscall
-	jal UNTRACK # keep old track
-	nop
-	jal TRACK # and draw new track line
+	jr $ra
 	nop
 end_main:
 
@@ -103,11 +86,7 @@ GO:	li $at, MOVING # change MOVING port
 # STOP procedure, to stop running
 # param[in] none
 #-----------------------------------------------------------
-STOP:	li $at, MOVING # change MOVING port to 0
-	sb $zero, 0($at) # to stop
-	nop
-	jr $ra
-	nop
+
 #-----------------------------------------------------------
 # TRACK procedure, to start drawing line
 # param[in] none
