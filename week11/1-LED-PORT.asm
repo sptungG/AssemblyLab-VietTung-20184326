@@ -6,7 +6,7 @@
  
 .text 
 main:           
-	li    $a0,  0x7F        			    # set value for segments           
+	li    $a0,  0x7F        			# set value for segments           
 	jal   SHOW_7SEG_LEFT          			# show           
 	nop           
 	li    $a0,  0x7F              			# set value for segments           
@@ -22,8 +22,8 @@ endmain:
 # param[in]  $a0   value to shown           # remark     $t0 changed 
 #--------------------------------------------------------------- 
 SHOW_7SEG_LEFT:  
-	li   $t0,  SEVENSEG_LEFT 			    # assign port's address                   
-	sb   $a0,  0($t0)        			    # assign new value                    
+	li   $t0,  SEVENSEG_LEFT 			# assign port's address                   
+	sb   $a0,  0($t0)        			# assign new value                    
 	nop                 
 	jr   $ra                  
 	nop                  

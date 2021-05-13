@@ -1,5 +1,5 @@
-.eqv MONITOR_SCREEN 0x10010000 	#Dia chi bat dau cua bo nho man hinh
-.eqv RED 0x00FF0000 		#Cac gia tri mau thuong su dung
+.eqv MONITOR_SCREEN 0x10010000 		#Dia chi bat dau cua bo nho man hinh
+.eqv RED 0x00FF0000 			#Cac gia tri mau thuong su dung
 .eqv GREEN 0x0000FF00
 .eqv BLACK 0x000000
 .eqv BLUE 0x000000FF
