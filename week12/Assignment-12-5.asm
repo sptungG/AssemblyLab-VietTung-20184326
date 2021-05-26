@@ -1,3 +1,6 @@
+# Assignment 5
+# Create a new project, type in, and build the program of Home Assignment 5.
+
 .eqv 	KEY_CODE   0xFFFF0004       # ASCII code from keyboard, 1 byte 
 .eqv 	KEY_READY  0xFFFF0000       # =1 if has a new keycode ?                                  
 					# Auto clear after lw 

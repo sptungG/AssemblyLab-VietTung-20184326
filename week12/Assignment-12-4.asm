@@ -1,3 +1,6 @@
+# Assignment 4
+# Create a new project, type in, and build the program of Home Assignment 4.
+# Upgrade the source code so that it could defect all 16 key buttons, from 0 to F.
 
 .eqv	IN_ADRESS_HEXA_KEYBOARD	0xFFFF0012
 .eqv	COUNTER			0xFFFF0013 # Time Counter

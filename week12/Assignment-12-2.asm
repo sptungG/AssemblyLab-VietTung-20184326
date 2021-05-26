@@ -1,3 +1,6 @@
+# Assignment 2
+# Create a new project, type in, and build the program of Home Assignment 2.
+# Upgrade the source code so that it could defect all 16 key buttons, from 0 to F.
 
 .eqv IN_ADDRESS_HEXA_KEYBOARD		0xFFFF0012
 

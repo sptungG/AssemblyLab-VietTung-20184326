@@ -1,3 +1,7 @@
+# Assignment 1
+# Create a new project, type in, and build the program of Home Assignment 1.
+# Upgrade the source code so that it could defect all 16 key buttons, from 0 to F.
+
 #------------------------------------------------------
 # 		col 0x1 	col 0x2 	col 0x4 	col 0x8
 #
@@ -24,6 +28,7 @@
 # receive row and column of the key pressed, 0 if not key pressed
 # Eg. equal 0x11, means that key button 0 pressed.
 # Eg. equal 0x28, means that key button D pressed.
+
 .eqv OUT_ADDRESS_HEXA_KEYBOARD 0xFFFF0014
 
 .text
