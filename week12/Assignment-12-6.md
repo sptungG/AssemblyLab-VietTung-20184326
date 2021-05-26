@@ -18,7 +18,7 @@ bits, 10 bits for SET field and 18 bits for TAG field.
 - Set: the index in the cache memory.
 - Offset: define byte offset from the index(set).
 
-![cache](cache-memory.png)
+![cache](images/cache-memory.png)
 
 ## 2. Cache miss: 
 When a cache miss occurs, the system locates new entry and put the data 
